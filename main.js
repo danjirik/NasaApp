@@ -9,9 +9,7 @@ document.getElementById("periodType").addEventListener("change", function () {
 
 
 function validateDateRange(dateFromId, dateToId) {
-    console.log("validating date range");
     var dateFromInput = document.getElementById(dateFromId).value;
-
     var currentDate = new Date().setHours(0, 0, 0, 0);
     var selectedDateFrom = new Date(dateFromInput).setHours(0, 0, 0, 0);
 
@@ -28,26 +26,25 @@ function validateDateRange(dateFromId, dateToId) {
 
         if (selectedDateTo > currentDate) {
             alert("Please choose end date from the past or today");
-            return false; // Prevent form submission
+            return false;
         }
         if (selectedDateFrom > selectedDateTo) {
             alert("End date must be greater than start date.");
-            return false; // Prevent form submission
+            return false;
         }
     }
 
-    return true; // Allow form submission
+    return true;
 }
 
 function validateCustomDateRange(dateFromId, periodType) {
-    console.log("validating custom date range");
     var dateFromInput = document.getElementById(dateFromId).value;
     var currentDate = new Date().setHours(0, 0, 0, 0);
     var selectedDateFrom = new Date(dateFromInput).setHours(0, 0, 0, 0);
 
     if (selectedDateFrom > currentDate) {
         alert("Please choose start date from the past or today.");
-        return false; // Prevent form submission
+        return false;
     }
 
     // Validate based on the selected period type
@@ -56,14 +53,14 @@ function validateCustomDateRange(dateFromId, periodType) {
         var numberOfDays = document.getElementById("days").value;
         if (!numberOfDays || numberOfDays < 1) {
             alert("Please enter a valid number of days.");
-            return false; // Prevent form submission
+            return false;
         }
         var selectedDateTo = new Date(dateFromInput);
         selectedDateTo.setDate(selectedDateTo.getDate() + parseInt(numberOfDays));
         selectedDateTo.setHours(0, 0, 0, 0);
         if (selectedDateTo > currentDate) {
             alert("Please choose start date atleast " + numberOfDays + " days before today.");
-            return false; // Prevent form submission
+            return false;
         }
     }
     else if (periodTypeValue === "week")
@@ -73,22 +70,19 @@ function validateCustomDateRange(dateFromId, periodType) {
         selectedDateTo.setHours(0, 0, 0, 0);
         if (selectedDateTo > currentDate) {
             alert("Please choose start date atleast 7 days before today.");
-            return false; // Prevent form submission
+            return false;
         }
     }
     else if (periodTypeValue === "month")
     {
-        console.log("month");
         var selectedDateTo = new Date(dateFromInput);
         selectedDateTo.setMonth(selectedDateTo.getMonth() + 1);
         selectedDateTo.setHours(0, 0, 0, 0);
-        console.log(selectedDateTo);
-        console.log(currentDate);
         if (selectedDateTo > currentDate) {
             alert("Please choose start date atleast 1 month before today.");
-            return false; // Prevent form submission
+            return false;
         }
     }
 
-    return true; // Allow form submission
+    return true;
 }

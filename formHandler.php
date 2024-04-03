@@ -8,28 +8,62 @@ class FormHandler
         $this->nasaApi = $nasaApi;
     }
 
-    //TODO: sanitize input on server side
+
+    private function isValidDateRange($dateFrom, $dateTo)
+    {
+        $today = date('Y-m-d');
+
+        // Check if dateFrom is before or equal to dateTo and neither date is in the future
+        if ($dateFrom <= $dateTo && $dateFrom <= $today && $dateTo <= $today) {
+            return true;
+        }
+        return false;
+    }
+
+    private function isValidDate($dateFrom)
+    {
+        $today = date('Y-m-d');
+
+        // Check if dateFrom is not in the future
+        if ($dateFrom <= $today) {
+            return true;
+        }
+        return false;
+    }
+
     public function handleFormSubmit()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submitDatespan'])) {
-                $dateFrom = $_POST['dateFrom'];
-                $dateTo = $_POST['dateTo'];
-                $images = $this->nasaApi->getImagesByDateSpan($dateFrom, $dateTo);
+                $dateFrom = htmlspecialchars($_POST['dateFrom']);
+                $dateTo = htmlspecialchars($_POST['dateTo']);
+                if ($this->isValidDateRange($dateFrom, $dateTo)) {
+                    $this->nasaApi->getImagesByDateSpan($dateFrom, $dateTo);
+                } else {
+                    echo "Invalid date range";
+                }
             } else if (isset($_POST['submitRandomImages'])) {
-                $randomImages = $_POST['randomImages'];
-                $images = $this->nasaApi->getRandomImages($randomImages);
+                $randomImagesCount = intval($_POST['randomImages']);
+                if ($randomImagesCount > 0 && $randomImagesCount <= 10) {
+                    $this->nasaApi->getRandomImages($randomImagesCount);
+                } else {
+                    echo "Invalid number of images";
+                }
             } else if (isset($_POST['submitDate'])) {
-                $date = $_POST['date'];
-                $images = $this->nasaApi->getImageByDate($date);
+                $date = htmlspecialchars($_POST['date']);
+                if ($this->isValidDate($date)) {
+                    $this->nasaApi->getImageByDate($date);
+                } else {
+                    echo "Invalid date";
+                }
             } else if (isset($_POST['submitCustomDatespan'])) {
-                $dateFrom = $_POST['dateFrom2'];
-                $periodType = $_POST['periodType'];
+                $dateFrom = htmlspecialchars($_POST['dateFrom2']);
+                $periodType = htmlspecialchars($_POST['periodType']);
                 $dateTo = null;
                 // Calculate end date based on period type
                 switch ($periodType) {
                     case 'custom':
-                        $days = $_POST['days'];
+                        $days = intval($_POST['days']);
                         $dateTo = date('Y-m-d', strtotime($dateFrom . ' + ' . $days . ' days'));
                         break;
                     case 'week':
@@ -41,11 +75,15 @@ class FormHandler
                     default:
                         return;
                 }
-                $images = $this->nasaApi->getImagesByDateSpan($dateFrom, $dateTo);
+                if ($this->isValidDateRange($dateFrom, $dateTo)) {
+                    $this->nasaApi->getImagesByDateSpan($dateFrom, $dateTo);
+                } else {
+                    echo "Invalid date range";
+                }
             }
-
         }
     }
+
 
 }
 ?>
