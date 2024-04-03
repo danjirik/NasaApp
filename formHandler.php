@@ -42,7 +42,7 @@ class FormHandler
                 } else {
                     echo "Invalid date range";
                 }
-            } else if (isset($_POST['submitRandomImages'])) {
+            } else if (isset($_POST['submitRandomData'])) {
                 $randomImagesCount = intval($_POST['randomImages']);
                 if ($randomImagesCount > 0 && $randomImagesCount <= 10) {
                     $this->nasaApi->getRandomImages($randomImagesCount);

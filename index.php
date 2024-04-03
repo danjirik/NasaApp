@@ -74,7 +74,7 @@ $formHandler->handleFormSubmit();
         <form id="randomImagesForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <label for="randomImages">Choose number of random images (1-10)</label>
             <input type="number" id="randomImages" name="randomImages" min="1" max="10">
-            <button type="submit" name="submitRandomImages">Get random images</button>
+            <button type="submit" name="submitRandomData">Get random data</button>
 
         </form>
 
