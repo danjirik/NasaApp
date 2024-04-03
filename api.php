@@ -18,7 +18,7 @@ class NasaApi
 
 
 
-    public function getImageByDate($date)
+    public function getDataByDate($date)
     {
         $json_data = file_get_contents($this->api . "&date=" . $date);
         $response_data = json_decode($json_data);
@@ -27,14 +27,14 @@ class NasaApi
             $response_data = [$response_data];
             $this->dataHandler->saveDataIntoFile($response_data);
         } else {
-            echo "Failed to retrieve image data for the given date.";
+            echo "Failed to retrieve data for the given date.";
             return null;
         }
 
         return $response_data;
     }
 
-    public function getImagesByDateSpan($date_from, $date_to)
+    public function getDataByDateSpan($date_from, $date_to)
     {
         $json_data = file_get_contents($this->api . "&start_date=" . $date_from . "&end_date=" . $date_to);
         $response_data = json_decode($json_data);
@@ -42,14 +42,14 @@ class NasaApi
         if ($response_data) {
             $this->dataHandler->saveDataIntoFile($response_data);
         } else {
-            echo "Failed to retrieve image data for the given date range.";
+            echo "Failed to retrieve data for the given date range.";
             return null;
         }
 
         return $response_data;
     }
 
-    public function getRandomImages($count)
+    public function getRandomData($count)
     {
         $json_data = file_get_contents($this->api . "&count=" . $count);
         $response_data = json_decode($json_data);
@@ -57,7 +57,7 @@ class NasaApi
         if ($response_data) {
             $this->dataHandler->saveDataIntoFile($response_data);
         } else {
-            echo "Failed to retrieve random image data.";
+            echo "Failed to retrieve random data.";
             return null;
         }
 

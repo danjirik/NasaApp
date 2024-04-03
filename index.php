@@ -39,7 +39,7 @@ $formHandler->handleFormSubmit();
 
     <div class="container">
         <h2>Choose date range option 1</h2>
-        <form id="imagesByTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateDateRange('dateFrom', 'dateTo')">
+        <form id="dataByTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateDateRange('dateFrom', 'dateTo')">
             <label for="dateFrom">Date from:</label>
             <input type="date" id="dateFrom" name="dateFrom" required>
             <label for="dateTo">Date to:</label>
@@ -48,7 +48,7 @@ $formHandler->handleFormSubmit();
         </form>
 
         <h2>Choose date range option 2</h2>
-        <form id="imagesByCustomTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"; method="post" onsubmit="return validateCustomDateRange('dateFrom2', 'periodType')">
+        <form id="dataByCustomTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"; method="post" onsubmit="return validateCustomDateRange('dateFrom2', 'periodType')">
             <label for="dateFrom">Initial day:</label>
             <input type="date" id="dateFrom2" name="dateFrom2" required><br><br>
 
@@ -71,15 +71,15 @@ $formHandler->handleFormSubmit();
         
 
         <h2>Get random data</h2>
-        <form id="randomImagesForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-            <label for="randomImages">Choose number of random images (1-10)</label>
-            <input type="number" id="randomImages" name="randomImages" min="1" max="10">
+        <form id="randomDataForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <label for="randomData">Choose number of random data (1-10)</label>
+            <input type="number" id="randomData" name="randomData" min="1" max="10">
             <button type="submit" name="submitRandomData">Get random data</button>
 
         </form>
 
         <h2>Choose date</h2>
-        <form id="imagesByDate" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateDateRange('date')">
+        <form id="dataByDate" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateDateRange('date')">
             <!-- Choose date from and date to -->
             <label for="date">Date:</label>
             <input type="date" id="date" name="date">

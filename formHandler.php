@@ -38,21 +38,21 @@ class FormHandler
                 $dateFrom = htmlspecialchars($_POST['dateFrom']);
                 $dateTo = htmlspecialchars($_POST['dateTo']);
                 if ($this->isValidDateRange($dateFrom, $dateTo)) {
-                    $this->nasaApi->getImagesByDateSpan($dateFrom, $dateTo);
+                    $this->nasaApi->getDataByDateSpan($dateFrom, $dateTo);
                 } else {
                     echo "Invalid date range";
                 }
             } else if (isset($_POST['submitRandomData'])) {
-                $randomImagesCount = intval($_POST['randomImages']);
-                if ($randomImagesCount > 0 && $randomImagesCount <= 10) {
-                    $this->nasaApi->getRandomImages($randomImagesCount);
+                $randomDataCount = intval($_POST['randomData']);
+                if ($randomDataCount > 0 && $randomDataCount <= 10) {
+                    $this->nasaApi->getRandomData($randomDataCount);
                 } else {
-                    echo "Invalid number of images";
+                    echo "Invalid number of Data";
                 }
             } else if (isset($_POST['submitDate'])) {
                 $date = htmlspecialchars($_POST['date']);
                 if ($this->isValidDate($date)) {
-                    $this->nasaApi->getImageByDate($date);
+                    $this->nasaApi->getDataByDate($date);
                 } else {
                     echo "Invalid date";
                 }
@@ -76,7 +76,7 @@ class FormHandler
                         return;
                 }
                 if ($this->isValidDateRange($dateFrom, $dateTo)) {
-                    $this->nasaApi->getImagesByDateSpan($dateFrom, $dateTo);
+                    $this->nasaApi->getDataByDateSpan($dateFrom, $dateTo);
                 } else {
                     echo "Invalid date range";
                 }
