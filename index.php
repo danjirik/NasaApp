@@ -3,6 +3,7 @@ require_once 'api.php';
 require_once 'formHandler.php';
 
 $nasa_api = new NasaApi();
+
 $formHandler = new FormHandler($nasa_api);
 
 $formHandler->handleFormSubmit();
@@ -37,9 +38,16 @@ $formHandler->handleFormSubmit();
 
 
 
+
     <div class="container">
+        <?php
+        $number = $nasa_api->getRequestLimit();
+        echo "<p>The remaining number of requests is: $number;</p>";
+        ?>
+
         <h2>Choose date range option 1</h2>
-        <form id="dataByTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateDateRange('dateFrom', 'dateTo')">
+        <form id="dataByTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post"
+            onsubmit="return validateDateRange('dateFrom', 'dateTo')">
             <label for="dateFrom">Date from:</label>
             <input type="date" id="dateFrom" name="dateFrom" required>
             <label for="dateTo">Date to:</label>
@@ -48,7 +56,8 @@ $formHandler->handleFormSubmit();
         </form>
 
         <h2>Choose date range option 2</h2>
-        <form id="dataByCustomTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"; method="post" onsubmit="return validateCustomDateRange('dateFrom2', 'periodType')">
+        <form id="dataByCustomTimespan" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" ; method="post"
+            onsubmit="return validateCustomDateRange('dateFrom2', 'periodType')">
             <label for="dateFrom">Initial day:</label>
             <input type="date" id="dateFrom2" name="dateFrom2" required><br><br>
 
@@ -66,9 +75,9 @@ $formHandler->handleFormSubmit();
                 <label for="customDaysInput">Number of days:</label>
                 <input type="number" id="days" name="days" min="1">
             </span>
-            
+
         </form>
-        
+
 
         <h2>Get random data</h2>
         <form id="randomDataForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
@@ -79,13 +88,14 @@ $formHandler->handleFormSubmit();
         </form>
 
         <h2>Choose date</h2>
-        <form id="dataByDate" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return validateDateRange('date')">
+        <form id="dataByDate" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post"
+            onsubmit="return validateDateRange('date')">
             <!-- Choose date from and date to -->
             <label for="date">Date:</label>
             <input type="date" id="date" name="date">
             <button type="submit" name="submitDate">Get data</button>
         </form>
-        
+
     </div>
 
     <script src="main.js"></script>

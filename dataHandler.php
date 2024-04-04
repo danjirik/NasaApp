@@ -19,9 +19,7 @@ class DataHandler
 
         if (!$csvFile) {
             error_log("Error occurred while saving data to the file.");
-        }
-        else
-        {
+        } else {
             echo "Data saved successfully";
         }
     }
