@@ -42,7 +42,14 @@ $formHandler->handleFormSubmit();
     <div class="container">
         <?php
         $number = $nasa_api->getRequestLimit();
-        echo "<p>The remaining number of requests is: $number;</p>";
+        if ($number !== null)
+        {
+            echo "<p>The remaining number of requests is: $number;</p>";
+        }
+        else
+        {
+            echo "<p>Send your first request to find out how many you have left.</p>";
+        }
         ?>
 
         <h2>Choose date range option 1</h2>

@@ -8,7 +8,7 @@ class NasaApi
     private $api_url = "https://api.nasa.gov/planetary/apod?api_key=";
     private $api = "";
     private $request_limit_text = "X-Ratelimit-Remaining:";
-    private $request_limit;
+    private $request_limit = null;
 
     private $dataHandler;
 
@@ -16,26 +16,12 @@ class NasaApi
     {
         $this->api = $this->api_url . $this->api_key;
         $this->dataHandler = new DataHandler();
-        $this->request_limit = $this->getRequestLimitFromHeader();
     }
 
 
     public function getRequestLimit()
     {
         return $this->request_limit;
-    }
-
-    public function getRequestLimitFromHeader()
-    {
-
-        $json_data = file_get_contents($this->api);
-        foreach ($http_response_header as $header) {
-            if (substr($header, 0, strlen($this->request_limit_text)) === $this->request_limit_text) {
-                $number = preg_replace('/\D/', '', $header);
-                return $number;
-            }
-        }
-        return null;
     }
 
     public function updateRequestLimit($http_response_header)
